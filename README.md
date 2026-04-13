@@ -54,7 +54,7 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 `site_name`
 :   `<title>`, `og:site_name`, `og:title`, `twitter:title`, JSON-LD `name`
-:   e.g. `IVAN VULOVIĆ`
+:   e.g. `John Doe`
 
 `site_description`
 :   `<meta description>`, `og:description`, `twitter:description`, JSON-LD `description`
@@ -68,7 +68,7 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 `site_author`
 :   `<meta name="author">`
-:   e.g. `Ivan Vulović`
+:   e.g. `John Doe`
 
 `extra.og_image`
 :   `og:image` + `width` / `height` / `type` / `alt`, `twitter:image` + `alt`, JSON-LD `image`
@@ -80,7 +80,7 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 `extra.author.name`
 :   JSON-LD `Person → name`
-:   e.g. `Ivan Vulović`
+:   e.g. `John Doe`
 
 `extra.author.url`
 :   JSON-LD `Person → url`
