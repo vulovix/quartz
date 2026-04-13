@@ -62,7 +62,7 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 `site_url`
 :   `<link canonical>`, `og:url`, JSON-LD `url`, SearchAction target
-:   e.g. `https://ivan.com`
+:   e.g. `https://example.com`
 
 **Recommended**
 
@@ -72,7 +72,7 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 `extra.og_image`
 :   `og:image` + `width` / `height` / `type` / `alt`, `twitter:image` + `alt`, JSON-LD `image`
-:   e.g. `https://ivan.com/assets/og.png`
+:   e.g. `https://example.com/assets/og.png`
 
 `extra.keywords`
 :   `<meta name="keywords">`
@@ -84,7 +84,7 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 `extra.author.url`
 :   JSON-LD `Person → url`
-:   e.g. `https://ivan.com`
+:   e.g. `https://example.com`
 
 **Optional**
 
