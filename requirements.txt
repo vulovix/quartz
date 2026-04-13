@@ -1,0 +1,3 @@
+mkdocs==1.6.1
+mkdocs-macros-plugin==1.0.5
+markdown-customblocks==1.5.4

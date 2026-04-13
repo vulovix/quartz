@@ -1,0 +1,122 @@
+/* ── List container ──────────────────────────────── */
+/* Hide unwrapped items until autoWrap.js groups them */
+.list-item-block,
+.list-item-detail {
+  visibility: hidden;
+}
+.list-container .list-item-block,
+.list-container .list-item-detail {
+  visibility: visible;
+}
+.list-container {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+.dark .list-container {
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+}
+.list-container > *:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.dark .list-container > *:not(:last-child) {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+.list-container .list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  transition: background 0.2s;
+  cursor: default;
+  text-decoration: none;
+  color: inherit;
+}
+.list-container .list-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+.dark .list-container .list-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Expandable list items ──────────────────────── */
+.expand-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.3;
+}
+.list-container .list-item-expandable {
+  cursor: pointer;
+  user-select: none;
+}
+.list-container .list-item-expandable.expanded:hover {
+  background: transparent;
+}
+.list-container .list-item-expandable:active {
+  opacity: 0.8;
+  transition: opacity 0.08s ease;
+}
+.list-container .list-item-expandable .expand-icon {
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  opacity: 0.3;
+}
+.list-container .list-item-expandable:hover .expand-icon {
+  opacity: 0.6;
+}
+.list-container .list-item-expandable.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+.list-container .list-item-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease;
+  opacity: 0;
+}
+.list-container .list-item-detail.open {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* ── Projects ────────────────────────────────────── */
+.list-container .project-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  line-height: 1.3;
+}
+.list-container .project-sub {
+  font-size: 12px;
+  opacity: var(--opacity-secondary);
+}
+.list-container .project-detail-body {
+  padding: 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.list-container .project-text {
+  font-size: 12px;
+  line-height: 1.625;
+  opacity: var(--opacity-body);
+}
+.list-container .project-text p + p {
+  margin-top: 0.5rem;
+}
+
+/* ── Link list arrow ─────────────────────────────── */
+.list-container .link-list-arrow {
+  font-size: 10px;
+  opacity: var(--opacity-muted);
+  transition: opacity 0.15s;
+}
+.list-container .list-item:hover .link-list-arrow {
+  opacity: 0.4;
+}

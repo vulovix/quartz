@@ -1,0 +1,198 @@
+/* ── Reset ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Theme Transition Hack ───────────────────────── */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    fill 0.3s ease,
+    stroke 0.3s ease !important;
+  transition-delay: 0s !important;
+}
+
+/* ── Tokens ──────────────────────────────────────── */
+:root {
+  --bg: #fafafa;
+  --fg: #111111;
+  --opacity-muted: 0.2;
+  --opacity-label: 0.4;
+  --opacity-secondary: 0.6;
+  --opacity-body: 1;
+  --color-dim: color-mix(in srgb, currentColor 60%, transparent);
+  --color-diff-removed: #f85149;
+  --color-diff-added: #3fb950;
+  --attention-flash: rgba(0, 0, 0, 0.09);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --border-grid: rgba(0, 0, 0, 0.06);
+  --bg-grid: rgba(0, 0, 0, 0.03);
+  --bg-hover: rgba(0, 0, 0, 0.04);
+  --bg-active-nav: rgba(0, 0, 0, 0.04);
+  --border-active-nav: rgba(0, 0, 0, 0.08);
+  --code-bg: rgba(0, 0, 0, 0.05);
+  --code-border: rgba(0, 0, 0, 0.08);
+  --blockquote-border: rgba(0, 0, 0, 0.12);
+}
+.dark {
+  --bg: #09090b;
+  --fg: #eeeeee;
+  --attention-flash: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-grid: rgba(255, 255, 255, 0.06);
+  --bg-grid: rgba(255, 255, 255, 0.03);
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  --bg-active-nav: rgba(255, 255, 255, 0.06);
+  --border-active-nav: rgba(255, 255, 255, 0.1);
+  --code-bg: rgba(255, 255, 255, 0.06);
+  --code-border: rgba(255, 255, 255, 0.08);
+  --blockquote-border: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Diff ─────────────────────────────────────────── */
+.diff-removed {
+  color: var(--color-diff-removed);
+}
+.diff-added {
+  color: var(--color-diff-added);
+}
+
+/* ── Scrollbar ───────────────────────────────────── */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Base ────────────────────────────────────────── */
+html,
+body {
+  height: 100%;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: rgb(209 250 229);
+}
+.dark ::selection {
+  background-color: #065f46cc;
+}
+
+/* ── Layout ──────────────────────────────────────── */
+.page-wrap {
+  max-width: 576px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--bg);
+  transition: background-color 0.3s;
+}
+
+.scroll-area {
+  flex: 1 1 auto;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background-color: var(--bg);
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-copy {
+  font-size: 10px;
+  opacity: var(--opacity-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+}
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 10px;
+  opacity: 0.3;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+  transition: opacity 0.15s;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+#theme-toggle:hover {
+  opacity: 0.6;
+}
+#theme-toggle svg {
+  width: 12px;
+  height: 12px;
+}
+.icon-light {
+  display: block;
+}
+.icon-dark {
+  display: none;
+}
+.dark .icon-light {
+  display: none;
+}
+.dark .icon-dark {
+  display: block;
+}
+.label-light {
+  display: inline;
+}
+.label-dark {
+  display: none;
+}
+.dark .label-light {
+  display: none;
+}
+.dark .label-dark {
+  display: inline;
+}
+
+/* ── Section label ───────────────────────────────── */
+.section-label {
+  font-size: 12px;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-dim);
+}

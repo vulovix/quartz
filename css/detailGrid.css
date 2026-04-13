@@ -1,0 +1,104 @@
+/* ── Detail Grid ─────────────────────────────────── */
+.detail-grid-wrapper {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: rgba(0, 0, 0, 0.03);
+}
+.dark .detail-grid-wrapper {
+  border-color: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+}
+.detail-grid-wrapper .detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.detail-grid-wrapper .detail-grid-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+.dark .detail-grid-wrapper .detail-grid-cell {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+.detail-grid-wrapper .detail-grid-cell:nth-child(2n) {
+  border-right: none;
+}
+.detail-grid-wrapper .detail-grid-cell:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+.detail-grid-wrapper .detail-grid-logo {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(0);
+  opacity: 0.25;
+  transition: opacity 0.2s;
+  user-select: none;
+}
+.dark .detail-grid-wrapper .detail-grid-logo {
+  filter: grayscale(1) brightness(100);
+}
+.detail-grid-wrapper .detail-grid-cell:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+.dark .detail-grid-wrapper .detail-grid-cell:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.detail-grid-wrapper .detail-grid-cell:hover .detail-grid-logo {
+  opacity: 0.45;
+}
+.detail-grid-wrapper .detail-grid-cell.active .detail-grid-logo {
+  opacity: 0.6;
+}
+.detail-grid-wrapper .detail-grid-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+.detail-grid-wrapper .detail-grid-detail.open {
+  grid-template-rows: 1fr;
+}
+.detail-grid-wrapper .detail-grid-detail-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.detail-grid-wrapper .detail-grid-detail-content {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+}
+.dark .detail-grid-wrapper .detail-grid-detail-content {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+.detail-grid-wrapper .detail-grid-detail-name {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0.375rem;
+}
+.detail-grid-wrapper .detail-grid-detail-text {
+  font-size: 12px;
+  line-height: 1.65;
+  opacity: var(--opacity-secondary);
+}
+.detail-grid-wrapper .detail-grid-detail-text p + p {
+  margin-top: 0.6em;
+}
+.detail-grid-wrapper .detail-grid-detail-text code {
+  font-family: "Fira Code", ui-monospace, monospace;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.dark .detail-grid-wrapper .detail-grid-detail-text code {
+  background: rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="{{ config.theme.locale | default('en') }}" class="loading">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% if page and page.is_homepage %}{{ config.site_name }}{% if config.site_description %} &middot; {{ config.site_description }}{% endif %}{% elif page and
+      page.title %}{{ page.title }} &middot; {{ config.site_name }}{% else %}{{ config.site_name }}{% endif %}
+    </title>
+    {% if config.site_description %}
+    <meta name="description" content="{{ config.site_description }}" />
+    {% endif %} {# ── SEO basics ────────────────────────────────────── #} {% if config.extra.keywords %}
+    <meta name="keywords" content="{{ config.extra.keywords }}" />
+    {% endif %} {% if config.site_author %}
+    <meta name="author" content="{{ config.site_author }}" />
+    {% endif %}
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content="MkDocs" />
+    {% if page and page.canonical_url %}
+    <link rel="canonical" href="{{ page.canonical_url }}" />
+    {% endif %} {# ── Favicon / Icons ────────────────────────────────── #}
+    <link rel="icon" href="{{ 'assets/favicon.ico' | url }}" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ 'assets/icon-192.png' | url }}" />
+    <link rel="apple-touch-icon" href="{{ 'assets/apple-touch-icon.png' | url }}" />
+    <link rel="manifest" href="{{ 'assets/manifest.json' | url }}" />
+    {# ── Open Graph ────────────────────────────────────── #} {% if page and page.is_homepage %} {% set _og_title = config.site_name %} {% set _og_desc =
+    config.site_description %} {% elif page and page.title %} {% set _og_title = page.title ~ " · " ~ config.site_name %} {% set _og_desc =
+    page.meta.description if page.meta.description else config.site_description %} {% else %} {% set _og_title = config.site_name %} {% set _og_desc =
+    config.site_description %} {% endif %}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="{{ config.extra.locale | default('en') }}" />
+    <meta property="og:site_name" content="{{ config.site_name }}" />
+    <meta property="og:title" content="{{ _og_title }}" />
+    {% if _og_desc %}
+    <meta property="og:description" content="{{ _og_desc }}" />
+    {% endif %} {% if page and page.canonical_url %}
+    <meta property="og:url" content="{{ page.canonical_url }}" />
+    {% endif %} {% if config.extra.og_image %}
+    <meta property="og:image" content="{{ config.extra.og_image }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="{{ _og_title }}" />
+    {% endif %} {# ── Twitter Card ──────────────────────────────────── #}
+    <meta name="twitter:card" content="{% if config.extra.og_image %}summary_large_image{% else %}summary{% endif %}" />
+    <meta name="twitter:title" content="{{ _og_title }}" />
+    {% if _og_desc %}
+    <meta name="twitter:description" content="{{ _og_desc }}" />
+    {% endif %} {% if config.extra.og_image %}
+    <meta name="twitter:image" content="{{ config.extra.og_image }}" />
+    <meta name="twitter:image:alt" content="{{ _og_title }}" />
+    {% endif %} {% if config.extra.twitter_handle %}
+    <meta name="twitter:site" content="@{{ config.extra.twitter_handle }}" />
+    <meta name="twitter:creator" content="@{{ config.extra.twitter_handle }}" />
+    {% endif %} {# ── JSON-LD Structured Data ───────────────────────── #}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "{% if page and page.is_homepage %}WebSite{% else %}WebPage{% endif %}",
+        "name": "{{ _og_title }}",
+        "description": "{{ _og_desc | default('') }}",
+        "url": "{{ page.canonical_url if page and page.canonical_url else config.site_url }}"{% if config.extra.author %},
+        "author": {
+          "@type": "Person",
+          "name": "{{ config.extra.author.name }}"{% if config.extra.author.url %},
+          "url": "{{ config.extra.author.url }}"{% endif %}
+        }{% endif %}{% if config.extra.og_image %},
+        "image": "{{ config.extra.og_image }}"{% endif %}{% if page and page.is_homepage %},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "{{ config.site_url }}search/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }{% endif %}
+      }
+    </script>
+    {# ── Theme color ───────────────────────────────────── #}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111111" />
+    <style>
+      html.loading body {
+        visibility: hidden;
+      }
+      html.loading .page-loader {
+        visibility: visible;
+      }
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+      }
+      .dark .page-loader {
+        background: #111;
+      }
+      .page-loader .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(0, 0, 0, 0.08);
+        border-top-color: rgba(0, 0, 0, 0.4);
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+      .dark .page-loader .spinner {
+        border-color: rgba(255, 255, 255, 0.08);
+        border-top-color: rgba(255, 255, 255, 0.4);
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@400;500&family=Unbounded:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ 'css/style.css' | url }}" />
+    {%- for path in config.extra_css %}
+    <link href="{{ path | url }}" rel="stylesheet" />
+    {%- endfor %}
+  </head>
+  <body>
+    <div class="page-loader"><div class="spinner"></div></div>
+    <div class="page-wrap">
+      {# ── Navigation ──────────────────────────────── #}
+      <nav class="site-nav">
+        <a href="{{ nav.homepage.url | url }}" class="nav-logo" aria-label="{{ config.site_name }}">
+          {% if config.theme.logo %}
+          <img src="{{ config.theme.logo | url }}" alt="{{ config.site_name }} logo" class="nav-logo-image" />
+          {% endif %}
+          <span class="nav-logo-text">{{ config.site_name }}</span>
+        </a>
+        {% if nav|length > 0 %}
+        <ul class="nav-links">
+          {% set in_blog = page and page.file.src_path.startswith("writing/") %} {% for nav_item in nav %} {% set is_active = nav_item.active or (in_blog and
+          nav_item.url and "writing/" in nav_item.url) %}
+          <li>
+            <a href="{{ nav_item.url | url }}" class="nav-link{% if is_active %} active{% endif %}"> {{ nav_item.title }} </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {# ── Mobile hamburger ─────────────────────── #}
+        <div class="hamburger-wrap">
+          <button id="hamburger" class="pressable hamburger-btn" aria-label="Menu">
+            <span id="hb-line1"></span>
+            <span id="hb-line2"></span>
+            <span id="hb-line3"></span>
+          </button>
+          <div id="mobile-menu" class="mobile-dropdown hidden">
+            {% set in_blog = page and page.file.src_path.startswith("writing/") %} {% for nav_item in nav %} {% set is_active = nav_item.active or (in_blog and
+            nav_item.url and "writing/" in nav_item.url) %}
+            <a href="{{ nav_item.url | url }}" class="mobile-nav-item pressable{% if is_active %} active{% endif %}"> {{ nav_item.title }} </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </nav>
+
+      {# ── Content area ────────────────────────────── #}
+      <div class="scroll-area">
+        {% block content %} {% if page %}
+        <article class="page-content">{{ page.content }}</article>
+        {% if not page.is_homepage %} {# ── Page TOC ─────────────────────────────── #} {% if page.toc | length > 1 %}
+        <aside class="page-toc">
+          <p class="section-label">On this page</p>
+          <ul>
+            {% for toc_item in page.toc %}
+            <li>
+              <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+              {% if toc_item.children %}
+              <ul>
+                {% for child in toc_item.children %}
+                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </aside>
+        {% endif %} {# ── Prev / Next navigation ──────────────── #} {% if (page.previous_page or page.next_page) and not page.meta.hide_nav %}
+        <nav class="page-nav" aria-label="Page navigation">
+          {% if page.previous_page %}
+          <a href="{{ page.previous_page.url | url }}" class="page-nav-link prev pressable">
+            <span class="page-nav-dir">← Previous</span>
+            <span class="page-nav-title">{{ page.previous_page.title }}</span>
+          </a>
+          {% endif %} {% if page.next_page %}
+          <a href="{{ page.next_page.url | url }}" class="page-nav-link next pressable">
+            <span class="page-nav-dir">Next →</span>
+            <span class="page-nav-title">{{ page.next_page.title }}</span>
+          </a>
+          {% endif %}
+        </nav>
+        {% endif %} {% endif %} {% endif %} {% endblock %}
+      </div>
+
+      {# ── Footer ──────────────────────────────────── #}
+      <footer>
+        <div class="footer-inner">
+          <p class="footer-copy">{% if config.copyright %}{{ config.copyright }}{% else %}&copy; {{ build_date_utc.year }} {{ config.site_name }}{% endif %}</p>
+          <button id="theme-toggle">
+            <svg
+              class="icon-light"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg
+              class="icon-dark"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <span class="label-light">Light</span>
+            <span class="label-dark">Dark</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    {# ── Search support ────────────────────────────── #} {% if 'search' in config.plugins %}
+    <script>
+      var base_url = {{ base_url | tojson }};
+    </script>
+    {% endif %} {# ── Theme scripts ─────────────────────────────── #}
+    <script src="{{ 'js/theme.js' | url }}"></script>
+    <script src="{{ 'js/pressable.js' | url }}"></script>
+    <script src="{{ 'js/nav.js' | url }}"></script>
+    <script src="{{ 'js/autoWrap.js' | url }}"></script>
+    <script src="{{ 'js/carousel.js' | url }}"></script>
+    <script src="{{ 'js/expand.js' | url }}"></script>
+    <script src="{{ 'js/detailGrid.js' | url }}"></script>
+    <script src="{{ 'js/attentionPulse.js' | url }}"></script>
+    <script src="{{ 'js/photoGallery.js' | url }}"></script>
+    <script src="{{ 'js/albumPlayer.js' | url }}"></script>
+    <script src="{{ 'js/instantNav.js' | url }}"></script>
+    <script>
+      (function () {
+        var loader = document.querySelector(".page-loader");
+        if (loader) loader.remove();
+        document.documentElement.classList.remove("loading");
+      })();
+    </script>
+
+    {# ── Extra scripts from config ─────────────────── #} {%- for script in config.extra_javascript %} {{ script | script_tag }} {%- endfor %}
+  </body>
+</html>

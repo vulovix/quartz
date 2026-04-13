@@ -1,0 +1,268 @@
+/* ── Syntax Highlighting (Pygments) ────────────── */
+/* Pygments token type styling - light theme */
+.c {
+  color: #888;
+} /* comment */
+.err {
+  color: #a61717;
+} /* error */
+.k {
+  color: #d73a49;
+} /* keyword */
+.l {
+  color: #005cc5;
+} /* literal */
+.m {
+  color: #005cc5;
+} /* number */
+.n {
+  color: #24292e;
+} /* name */
+.o {
+  color: #d73a49;
+} /* operator */
+.p {
+  color: #24292e;
+} /* punctuation */
+.s {
+  color: #032f62;
+} /* string */
+.na {
+  color: #6f42c1;
+} /* name.attribute */
+.nb {
+  color: #005cc5;
+} /* name.builtin */
+.nc {
+  color: #6f42c1;
+} /* name.class */
+.no {
+  color: #005cc5;
+} /* name.constant */
+.nd {
+  color: #6f42c1;
+} /* name.decorator */
+.ni {
+  color: #005cc5;
+} /* name.entity */
+.ne {
+  color: #d73a49;
+} /* name.exception */
+.nf {
+  color: #6f42c1;
+} /* name.function */
+.nl {
+  color: #005cc5;
+} /* name.label */
+.nn {
+  color: #6f42c1;
+} /* name.namespace */
+.nt {
+  color: #22863a;
+} /* name.tag */
+.nv {
+  color: #24292e;
+} /* name.variable */
+.ow {
+  color: #d73a49;
+} /* operator.word */
+.mb {
+  color: #005cc5;
+} /* number.bin */
+.mf {
+  color: #005cc5;
+} /* number.float */
+.mh {
+  color: #005cc5;
+} /* number.hex */
+.mi {
+  color: #005cc5;
+} /* number.integer */
+.mo {
+  color: #005cc5;
+} /* number.oct */
+.sa {
+  color: #032f62;
+} /* string.affix */
+.sb {
+  color: #032f62;
+} /* string.backtick */
+.sc {
+  color: #032f62;
+} /* string.char */
+.sd {
+  color: #032f62;
+} /* string.doc */
+.s1 {
+  color: #032f62;
+} /* string.single */
+.se {
+  color: #032f62;
+} /* string.escape */
+.sh {
+  color: #032f62;
+} /* string.heredoc */
+.si {
+  color: #032f62;
+} /* string.interpol */
+.sx {
+  color: #032f62;
+} /* string.other */
+.sr {
+  color: #032f62;
+} /* string.regex */
+.s2 {
+  color: #032f62;
+} /* string.double */
+.ss {
+  color: #032f62;
+} /* string.symbol */
+.bp {
+  color: #005cc5;
+} /* name.builtin.pseudo */
+.vc {
+  color: #24292e;
+} /* name.variable.class */
+.vg {
+  color: #24292e;
+} /* name.variable.global */
+.vi {
+  color: #24292e;
+} /* name.variable.instance */
+.il {
+  color: #005cc5;
+} /* literal.number.integer.long */
+
+/* Dark theme */
+.dark .c {
+  color: #6a9955;
+}
+.dark .err {
+  color: #f48771;
+}
+.dark .k {
+  color: #569cd6;
+}
+.dark .l {
+  color: #ce9178;
+}
+.dark .m {
+  color: #b5cea8;
+}
+.dark .n {
+  color: #d4d4d4;
+}
+.dark .o {
+  color: #d4d4d4;
+}
+.dark .p {
+  color: #d4d4d4;
+}
+.dark .s {
+  color: #ce9178;
+}
+.dark .na {
+  color: #9cdcfe;
+}
+.dark .nb {
+  color: #4ec9b0;
+}
+.dark .nc {
+  color: #4ec9b0;
+}
+.dark .no {
+  color: #9cdcfe;
+}
+.dark .nd {
+  color: #ffffb3;
+}
+.dark .ni {
+  color: #4ec9b0;
+}
+.dark .ne {
+  color: #f48771;
+}
+.dark .nf {
+  color: #dcdcaa;
+}
+.dark .nl {
+  color: #9cdcfe;
+}
+.dark .nn {
+  color: #4ec9b0;
+}
+.dark .nt {
+  color: #569cd6;
+}
+.dark .nv {
+  color: #9cdcfe;
+}
+.dark .ow {
+  color: #569cd6;
+}
+.dark .mb {
+  color: #b5cea8;
+}
+.dark .mf {
+  color: #b5cea8;
+}
+.dark .mh {
+  color: #b5cea8;
+}
+.dark .mi {
+  color: #b5cea8;
+}
+.dark .mo {
+  color: #b5cea8;
+}
+.dark .sa {
+  color: #ce9178;
+}
+.dark .sb {
+  color: #ce9178;
+}
+.dark .sc {
+  color: #ce9178;
+}
+.dark .sd {
+  color: #ce9178;
+}
+.dark .s1 {
+  color: #ce9178;
+}
+.dark .se {
+  color: #ce9178;
+}
+.dark .sh {
+  color: #ce9178;
+}
+.dark .si {
+  color: #ce9178;
+}
+.dark .sx {
+  color: #ce9178;
+}
+.dark .sr {
+  color: #ce9178;
+}
+.dark .s2 {
+  color: #ce9178;
+}
+.dark .ss {
+  color: #ce9178;
+}
+.dark .bp {
+  color: #4ec9b0;
+}
+.dark .vc {
+  color: #9cdcfe;
+}
+.dark .vg {
+  color: #9cdcfe;
+}
+.dark .vi {
+  color: #9cdcfe;
+}
+.dark .il {
+  color: #b5cea8;
+}

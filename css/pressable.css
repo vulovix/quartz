@@ -1,0 +1,43 @@
+/* ── Pressable ripple ────────────────────────────── */
+.pressable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+.pressable-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0);
+  animation: pressable-ripple 550ms ease forwards;
+}
+@keyframes pressable-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.12;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.pressable:not(.list-item):hover {
+  background: var(--bg-hover);
+}
+.dark .pressable:not(.list-item):hover {
+  background: var(--bg-hover);
+}
+.pressable:active {
+  opacity: 0.75;
+  transition: opacity 0.06s ease;
+}
+.list-item.pressable:active {
+  opacity: 0.75;
+  transition: opacity 0.06s ease;
+}
