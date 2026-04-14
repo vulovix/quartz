@@ -52,17 +52,17 @@
   margin-bottom: 1rem;
 }
 
-.page-content > a {
+.page-content a:not([class]) {
   color: inherit;
   text-decoration: underline;
   text-decoration-color: rgba(0, 0, 0, 0.2);
   text-underline-offset: 4px;
   transition: text-decoration-color 0.15s;
 }
-.dark .page-content > a {
+.dark .page-content a:not([class]) {
   text-decoration-color: rgba(255, 255, 255, 0.2);
 }
-.page-content > a:hover {
+.page-content a:not([class]):hover {
   text-decoration-color: currentColor;
 }
 
