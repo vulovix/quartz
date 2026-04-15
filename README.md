@@ -96,15 +96,16 @@ The theme automatically generates a full set of SEO tags from `mkdocs.yml`. Here
 
 #### Per-page front matter
 
-Individual pages can override the global description:
+Individual pages can override the global description and the fallback Open Graph / Twitter image:
 
 ```yaml
 ---
 description: Custom description for this page only.
+og_image: https://example.com/assets/custom-og.png
 ---
 ```
 
-This feeds `og:description` and `twitter:description` for that page while the rest falls back to `site_description`.
+This feeds `<meta name="description">`, `og:description`, and `twitter:description` (for `description`), as well as `og:image` and `twitter:image` (for `og_image`) for that page while the rest falls back to their respective global configuration variables.
 
 #### Generated `<head>` tags
 
@@ -146,7 +147,7 @@ The theme outputs the following tags automatically:
 :   mapped from metadata
 
 `og:image`
-:   from `extra.og_image` (1200×630 PNG recommended)
+:   from `page.meta.og_image` or `extra.og_image` (1200×630 PNG recommended)
 
 `og:image:width`, `og:image:height`, `og:image:type`, `og:image:alt`
 :   generated automatically
