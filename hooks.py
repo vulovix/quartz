@@ -2,7 +2,6 @@
 
 import json
 import re
-import yaml
 from html import escape
 from pathlib import Path
 from mkdocs.structure.files import File
@@ -24,20 +23,6 @@ def on_files(files, config):
 
 def on_config(config):
     """Register custom block generators into the customblocks extension."""
-
-    # Load icon SVG paths for icon-item blocks
-    config_dir = Path(config["config_file_path"]).parent
-    icons_file = config_dir / "data" / "icons.yml"
-    icons = {}
-    if icons_file.exists():
-        with open(icons_file) as f:
-            icons = yaml.safe_load(f) or {}
-
-    def _svg(name):
-        path = icons.get(name, "")
-        return f"""<svg viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round">{path}</svg>"""
 
     # ── Generators ──────────────────────────────────────────
 
@@ -62,18 +47,15 @@ def on_config(config):
     def icon_item(ctx, icon="", name=""):
         desc = escape(ctx.content.strip())
         
-        icon_html = ""
-        if "/" in icon or icon.endswith(".svg"):
-            config_dir = Path(config["config_file_path"]).parent
-            docs_dir = Path(config.get("docs_dir", config_dir / "docs"))
-            icon_path = docs_dir / icon.lstrip("/")
-            if icon_path.exists():
-                with open(icon_path, "r") as f:
-                    icon_html = f.read().replace(' xmlns="http://www.w3.org/2000/svg"', "")
-            else:
-                icon_html = f'<img src="{escape(icon)}" alt="{escape(name)}" />'
+        config_dir = Path(config["config_file_path"]).parent
+        docs_dir = Path(config.get("docs_dir", config_dir / "docs"))
+        icon_path = docs_dir / icon.lstrip("/")
+        
+        if icon_path.exists():
+            with open(icon_path, "r") as f:
+                icon_html = f.read().replace(' xmlns="http://www.w3.org/2000/svg"', "")
         else:
-            icon_html = _svg(icon)
+            icon_html = f'<img src="{escape(icon)}" alt="{escape(name)}" />'
 
         return f"""\
 <div class="icon-grid-cell">
