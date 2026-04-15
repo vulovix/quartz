@@ -71,13 +71,13 @@ def on_config(config):
 </div>"""
 
     def detail_cell(ctx, slug="", name="", logo="", open=""):
-        blurb = escape(ctx.content.strip())
+        blurb = escape(ctx.content.strip()).replace("\n", "&#10;")
         open_attr = ' data-open="true"' if open.lower() == "true" else ""
         return f"""\
 <div class="detail-grid-cell pressable"
   data-slug="{escape(slug)}"
   data-name="{escape(name)}"
-  data-blurb="{escape(blurb)}"{open_attr}
+  data-blurb="{blurb}"{open_attr}
   role="button" tabindex="0">
   <img src="{escape(logo)}" alt="{escape(name)}"
     class="detail-grid-logo" loading="lazy" draggable="false" />
