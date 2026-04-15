@@ -58,10 +58,10 @@ Navigational list items with an arrow. Consecutive items auto-group into a style
 
 ### Icon Item
 
-Icon + text cells arranged in a 2-column grid. Uses SVG icons defined in `data/icons.yml`.
+Icon + text cells arranged in a 2-column grid. Uses SVG icons defined in `data/icons.yml` or loads SVG files directly from your `docs_dir` when an `.svg` path is provided.
 
-::: icon-item icon="wrench" name="Wrench"
-    Represents tools, building, or fixing things.
+::: icon-item icon="assets/svg/wrench.svg" name="Build & Performance"
+    If it's slow, I fix it. If the build takes too long, I fix that too.
 
 ::: icon-item icon="code" name="Code"
     For programming, development, or technical topics.
@@ -80,8 +80,8 @@ Icon + text cells arranged in a 2-column grid. Uses SVG icons defined in `data/i
 
 **Code:**
 ```markdown
-::: icon-item icon="wrench" name="Wrench"
-    Represents tools, building, or fixing things.
+::: icon-item icon="assets/svg/wrench.svg" name="Build & Performance"
+    If it's slow, I fix it. If the build takes too long, I fix that too.
 
 ::: icon-item icon="code" name="Code"
     For programming, development, or technical topics.
