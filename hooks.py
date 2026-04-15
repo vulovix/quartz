@@ -84,7 +84,7 @@ def on_config(config):
 
     _IMG_RE = re.compile(r"^!\[([^\]]*)\]\(([^)]+)\)\s*$")
 
-    def accordion(ctx, id="", title="", subtitle="", pulse="", aspect=""):
+    def accordion(ctx, id="", title="", subtitle="", pulse="", aspect="", open=""):
         content = ctx.content.strip()
         images = []
         text_lines = []
@@ -95,15 +95,8 @@ def on_config(config):
             else:
                 text_lines.append(line)
 
-        imgs_html = "".join(
-            f"""<img src="{escape(src)}" alt="{escape(alt)}" draggable="false" loading="lazy" />"""
-            for alt, src in images
-        )
-        paragraphs = "".join(
-            f"""<p>{escape(p.strip())}</p>"""
-            for p in "\n".join(text_lines).split("\n\n")
-            if p.strip()
-        )
+        imgs_html = "".join(f'<img src="{escape(src)}" alt="{escape(alt)}" draggable="false" loading="lazy" />' for alt, src in images)
+        paragraphs = "".join(f"<p>{escape(p.strip())}</p>" for p in "\n".join(text_lines).split("\n\n") if p.strip())
 
         detail_id = f"project-{escape(id)}"
         trigger_id = f"{detail_id}-trigger"
@@ -120,10 +113,17 @@ def on_config(config):
             pulse_attrs = pulse_attrs.rstrip()
 
         carousel_style = f" style=\"aspect-ratio:{aspect}\"" if aspect else ""
+        
+        trigger_classes = "list-item list-item-expandable pressable"
+        detail_classes = "list-item-detail"
+        
+        if open.lower() == "true":
+            trigger_classes += " expanded"
+            detail_classes += " open"
 
         return f"""\
 <div class="list-item-block">
-  <div id="{trigger_id}" class="list-item list-item-expandable pressable"
+  <div id="{trigger_id}" class="{trigger_classes}"
     data-expand="{detail_id}"{pulse_attrs}>
     <div>
       <h4 class="project-title">{title}</h4>
@@ -135,7 +135,7 @@ def on_config(config):
       <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
   </div>
-  <div id="{detail_id}" class="list-item-detail">
+  <div id="{detail_id}" class="{detail_classes}">
     <div class="project-detail-body">
       <div class="carousel"{carousel_style} data-carousel="">
         <div class="carousel-track">{imgs_html}</div>
