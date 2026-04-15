@@ -65,7 +65,8 @@ def on_config(config):
         icon_html = ""
         if "/" in icon or icon.endswith(".svg"):
             config_dir = Path(config["config_file_path"]).parent
-            icon_path = config_dir / icon.lstrip("/")
+            docs_dir = Path(config.get("docs_dir", config_dir / "docs"))
+            icon_path = docs_dir / icon.lstrip("/")
             if icon_path.exists():
                 with open(icon_path, "r") as f:
                     icon_html = f.read()
