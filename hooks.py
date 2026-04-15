@@ -25,6 +25,20 @@ def on_files(files, config):
 def on_config(config):
     """Register custom block generators into the customblocks extension."""
 
+    # Load icon SVG paths for icon-item blocks
+    config_dir = Path(config["config_file_path"]).parent
+    icons_file = config_dir / "data" / "icons.yml"
+    icons = {}
+    if icons_file.exists():
+        with open(icons_file) as f:
+            icons = yaml.safe_load(f) or {}
+
+    def _svg(name):
+        path = icons.get(name, "")
+        return f"""<svg viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">{path}</svg>"""
+
     # ── Generators ──────────────────────────────────────────
 
     def section_heading(ctx, subtitle=""):
@@ -47,9 +61,22 @@ def on_config(config):
 
     def icon_item(ctx, icon="", name=""):
         desc = escape(ctx.content.strip())
+        
+        icon_html = ""
+        if "/" in icon or icon.endswith(".svg"):
+            config_dir = Path(config["config_file_path"]).parent
+            icon_path = config_dir / icon.lstrip("/")
+            if icon_path.exists():
+                with open(icon_path, "r") as f:
+                    icon_html = f.read()
+            else:
+                icon_html = f'<img src="{escape(icon)}" alt="{escape(name)}" />'
+        else:
+            icon_html = _svg(icon)
+
         return f"""\
 <div class="icon-grid-cell">
-  <div class="icon-grid-icon"><img src="{escape(icon)}" alt="{escape(name)}" /></div>
+  <div class="icon-grid-icon">{icon_html}</div>
   <div class="icon-grid-info">
     <p class="icon-grid-name">{name}</p>
     <p class="icon-grid-desc">{desc}</p>
