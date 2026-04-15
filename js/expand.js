@@ -16,4 +16,16 @@
       initCarouselsIn(detail);
     }
   });
+
+  // Handle pre-opened accordions
+  document.addEventListener("DOMContentLoaded", function () {
+    var expandedTriggers = document.querySelectorAll("[data-expand].expanded");
+    for (var i = 0; i < expandedTriggers.length; i++) {
+      var trigger = expandedTriggers[i];
+      var detail = document.getElementById(trigger.dataset.expand);
+      if (detail && detail.classList.contains("open") && typeof initCarouselsIn === "function") {
+        initCarouselsIn(detail);
+      }
+    }
+  });
 })();
