@@ -69,7 +69,7 @@ def on_config(config):
             icon_path = docs_dir / icon.lstrip("/")
             if icon_path.exists():
                 with open(icon_path, "r") as f:
-                    icon_html = f.read()
+                    icon_html = f.read().replace(' xmlns="http://www.w3.org/2000/svg"', "")
             else:
                 icon_html = f'<img src="{escape(icon)}" alt="{escape(name)}" />'
         else:
