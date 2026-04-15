@@ -25,6 +25,13 @@
       grid.dataset.pulseFirst = ".detail-grid-cell";
       grid.dataset.pulseChild = ".detail-grid-logo";
       grid.dataset.pulseStyle = "ripple";
+
+      var openCell = grid.querySelector('.detail-grid-cell[data-open="true"]');
+      if (openCell) {
+        setTimeout(function () {
+          handleCellClick(openCell);
+        }, 0);
+      }
     });
   }
 
