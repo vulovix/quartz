@@ -56,7 +56,8 @@
   color: inherit;
   text-decoration: underline;
   text-decoration-style: wavy;
-  opacity: var(--opacity-secondary);
+  opacity: var(--opacity-body);
+  /* opacity: var(--opacity-secondary); */
   text-decoration-color: rgba(0, 0, 0, 0.2);
   text-underline-offset: 4px;
   transition: text-decoration-color 0.15s;
