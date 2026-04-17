@@ -50,7 +50,6 @@
   font-size: 13px;
   line-height: 1.625;
   margin-bottom: 1rem;
-  opacity: var(--opacity-secondary);
 }
 
 .page-content a:not([class]) {
