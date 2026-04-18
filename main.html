@@ -11,10 +11,9 @@
     <meta name="description" content="{{ page.meta.description }}" />
     {% elif config.site_description %}
     <meta name="description" content="{{ config.site_description }}" />
-    {% endif %} {# ── SEO basics ────────────────────────────────────── #} {% if page and page.meta.keywords %}
-    <meta name="keywords" content="{{ page.meta.keywords }}" />
-    {% elif config.extra.keywords %}
-    <meta name="keywords" content="{{ config.extra.keywords }}" />
+    {% endif %} {# ── SEO basics ────────────────────────────────────── #} {% set _kw = [] %} {% if config.extra.keywords %} {% set _ =
+    _kw.append(config.extra.keywords) %} {% endif %} {% if page and page.meta.keywords %} {% set _ = _kw.append(page.meta.keywords) %} {% endif %} {% if _kw %}
+    <meta name="keywords" content="{{ _kw | join(', ') }}" />
     {% endif %} {% if config.site_author %}
     <meta name="author" content="{{ config.site_author }}" />
     {% endif %}
