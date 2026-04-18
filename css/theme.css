@@ -192,7 +192,7 @@ footer {
 /* ── Section label ───────────────────────────────── */
 .section-label {
   font-size: 12px;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
   color: var(--color-dim);
 }
