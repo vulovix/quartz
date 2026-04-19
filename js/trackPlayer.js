@@ -1,7 +1,7 @@
 /* ── Track Player (single-track card) ────────────── */
 (function () {
   var audio = new Audio();
-  audio.preload = "none";
+  audio.preload = "metadata";
 
   var activeCard = null;
 
@@ -96,8 +96,8 @@
       if (bar) {
         bar.addEventListener("click", function (e) {
           e.stopPropagation();
-          // If this card isn't active yet, start playing it first
           if (activeCard !== card) {
+            // Start playing, then seek once metadata is available
             play(card);
             audio.addEventListener("loadedmetadata", function seekOnce() {
               audio.removeEventListener("loadedmetadata", seekOnce);
@@ -107,9 +107,17 @@
             });
             return;
           }
+          // Already active — just seek
           var rect = bar.getBoundingClientRect();
           var pct = (e.clientX - rect.left) / rect.width;
-          if (audio.duration) audio.currentTime = pct * audio.duration;
+          if (audio.duration) {
+            audio.currentTime = pct * audio.duration;
+            // If paused (e.g. after track ended), resume playback
+            if (audio.paused) {
+              audio.play();
+              setPlaying(card, true);
+            }
+          }
         });
       }
     });
