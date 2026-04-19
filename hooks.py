@@ -303,13 +303,13 @@ def on_config(config):
         </svg>
       </button>
     </div>
-    <div class="track-card-progress">
+    <div class="track-card-progress hidden">
       <div class="track-card-progress-bar">
         <div class="track-card-progress-fill"></div>
       </div>
       <div class="track-card-progress-times">
         <span class="track-card-time-current">0:00</span>
-        <span class="track-card-time-total">0:00</span>
+        <span class="track-card-time-total"></span>
       </div>
     </div>
   </div>

@@ -29,6 +29,10 @@
 
     activeCard = card;
 
+    // Show progress section on first play
+    var progress = card.querySelector(".track-card-progress");
+    if (progress) progress.classList.remove("hidden");
+
     if (audio.getAttribute("data-card-id") !== card.dataset.trackId) {
       audio.src = src;
       audio.setAttribute("data-card-id", card.dataset.trackId);
