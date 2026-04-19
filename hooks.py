@@ -283,6 +283,39 @@ def on_config(config):
   </div>
 </div>"""
 
+    def track_card(ctx, id="", title="", artist="", duration="", cover="", src=""):
+        return f"""\
+<div class="track-card" data-track-id="{escape(id)}" data-src="{escape(src)}">
+  <img src="{escape(cover)}" alt="{escape(title)}" class="track-card-cover" loading="lazy" draggable="false" />
+  <div class="track-card-body">
+    <div class="track-card-info">
+      <div class="track-card-meta">
+        <p class="track-card-title">{escape(title)}</p>
+        <p class="track-card-artist">{escape(artist)}</p>
+      </div>
+      <span class="track-card-duration">{escape(duration)}</span>
+      <button class="track-card-playpause pressable" aria-label="Play/Pause">
+        <svg class="track-card-icon-play" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5,3 19,12 5,21"></polygon>
+        </svg>
+        <svg class="track-card-icon-pause hidden" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="6" y="4" width="4" height="16"></rect>
+          <rect x="14" y="4" width="4" height="16"></rect>
+        </svg>
+      </button>
+    </div>
+    <div class="track-card-progress">
+      <div class="track-card-progress-bar">
+        <div class="track-card-progress-fill"></div>
+      </div>
+      <div class="track-card-progress-times">
+        <span class="track-card-time-current">0:00</span>
+        <span class="track-card-time-total">0:00</span>
+      </div>
+    </div>
+  </div>
+</div>"""
+
     def blog_post(ctx, slug="", title="", date=""):
         excerpt = escape(ctx.content.strip())
         return f"""\
@@ -303,6 +336,7 @@ def on_config(config):
         "accordion": accordion,
         "photo-card": photo_card,
         "album-card": album_card,
+        "track-card": track_card,
         "blog-post": blog_post,
     }
     return config

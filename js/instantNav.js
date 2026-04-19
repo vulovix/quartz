@@ -65,6 +65,7 @@
     if (window.initPulses) initPulses();
     if (window.initPhotoGallery) initPhotoGallery();
     if (window.initAlbumPlayer) initAlbumPlayer();
+    if (window.initTrackPlayer) initTrackPlayer();
   }
 
   function navigate(url) {
