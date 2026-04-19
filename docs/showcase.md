@@ -237,17 +237,17 @@ Music player with track list, play/pause controls, and a mini player bar. Tracks
 
 A single-track inline player with cover art, title, artist, play/pause, seekable progress bar, and time display.
 
-::: track-card id="demo-track-1" title="Golden Hour" artist="Showcase" duration="3:42" cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+::: track-card id="demo-track-1" title="Golden Hour" artist="Showcase" cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
-::: track-card id="demo-track-2" title="Night Drive" artist="Showcase" duration="4:15" cover="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+::: track-card id="demo-track-2" title="Night Drive" artist="Showcase" cover="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
 
-::: track-card id="demo-track-3" title="Morning Light" artist="Showcase" duration="2:58" cover="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+::: track-card id="demo-track-3" title="Morning Light" artist="Showcase" cover="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
 
 **Code:**
 ```markdown
-::: track-card id="demo-track-1" title="Golden Hour" artist="Showcase" duration="3:42" cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+::: track-card id="demo-track-1" title="Golden Hour" artist="Showcase" cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
-::: track-card id="demo-track-2" title="Night Drive" artist="Showcase" duration="4:15" cover="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+::: track-card id="demo-track-2" title="Night Drive" artist="Showcase" cover="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
 ```
 
 ---

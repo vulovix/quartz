@@ -61,6 +61,12 @@
     tot.textContent = audio.duration ? fmt(audio.duration) : "0:00";
   });
 
+  audio.addEventListener("loadedmetadata", function () {
+    if (!activeCard) return;
+    var tot = activeCard.querySelector(".track-card-time-total");
+    if (tot) tot.textContent = audio.duration ? fmt(audio.duration) : "0:00";
+  });
+
   audio.addEventListener("ended", function () {
     if (!activeCard) return;
     setPlaying(activeCard, false);

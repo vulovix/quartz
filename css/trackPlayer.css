@@ -122,10 +122,3 @@
   font-size: 10px;
   opacity: var(--opacity-muted);
 }
-
-/* ── Duration badge (static, shown before play) ──── */
-.track-card-duration {
-  font-size: 11px;
-  opacity: var(--opacity-muted);
-  flex-shrink: 0;
-}

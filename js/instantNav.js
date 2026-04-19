@@ -8,6 +8,17 @@
   if (!scrollArea) return;
 
   var parser = new DOMParser();
+
+  // Mark external links in initial content with target="_blank"
+  scrollArea.querySelectorAll("a[href]").forEach(function (a) {
+    try {
+      var u = new URL(a.href, location.href);
+      if (u.origin !== location.origin && !a.hasAttribute("target")) {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener");
+      }
+    } catch (e) {}
+  });
   var cache = {};
 
   // Resolve all nav links to absolute so they survive pushState URL changes
@@ -85,7 +96,8 @@
         var raw = el.getAttribute("href");
         if (raw)
           try {
-            el.setAttribute("href", new URL(raw, key).href);
+            var resolved = new URL(raw, key).href;
+            el.setAttribute("href", resolved);
           } catch (e) {}
       });
       newScroll.querySelectorAll("[src]").forEach(function (el) {
@@ -94,6 +106,17 @@
           try {
             el.setAttribute("src", new URL(raw, key).href);
           } catch (e) {}
+      });
+
+      // Ensure external links open in a new tab
+      newScroll.querySelectorAll("a[href]").forEach(function (a) {
+        try {
+          var u = new URL(a.getAttribute("href"), key);
+          if (u.origin !== location.origin && !a.hasAttribute("target")) {
+            a.setAttribute("target", "_blank");
+            a.setAttribute("rel", "noopener");
+          }
+        } catch (e) {}
       });
 
       // Push state before swapping so the URL is correct

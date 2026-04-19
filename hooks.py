@@ -283,7 +283,7 @@ def on_config(config):
   </div>
 </div>"""
 
-    def track_card(ctx, id="", title="", artist="", duration="", cover="", src=""):
+    def track_card(ctx, id="", title="", artist="", cover="", src=""):
         return f"""\
 <div class="track-card" data-track-id="{escape(id)}" data-src="{escape(src)}">
   <img src="{escape(cover)}" alt="{escape(title)}" class="track-card-cover" loading="lazy" draggable="false" />
@@ -293,7 +293,6 @@ def on_config(config):
         <p class="track-card-title">{escape(title)}</p>
         <p class="track-card-artist">{escape(artist)}</p>
       </div>
-      <span class="track-card-duration">{escape(duration)}</span>
       <button class="track-card-playpause pressable" aria-label="Play/Pause">
         <svg class="track-card-icon-play" viewBox="0 0 24 24" fill="currentColor">
           <polygon points="5,3 19,12 5,21"></polygon>
