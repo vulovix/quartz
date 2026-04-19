@@ -84,20 +84,28 @@
       if (card._trackBound) return;
       card._trackBound = true;
 
-      var playBtn = card.querySelector(".track-card-playpause");
-      if (playBtn) {
-        playBtn.addEventListener("click", function (e) {
-          e.stopPropagation();
-          toggle(card);
-        });
-      }
+      // Click anywhere on the card toggles play/pause
+      card.addEventListener("click", function (e) {
+        // Don't toggle if clicking the progress bar (that's for seeking)
+        if (e.target.closest(".track-card-progress-bar")) return;
+        toggle(card);
+      });
 
       var bar = card.querySelector(".track-card-progress-bar");
       if (bar) {
         bar.addEventListener("click", function (e) {
           e.stopPropagation();
+          // If this card isn't active yet, start playing it first
           if (activeCard !== card) {
             play(card);
+            // Wait for metadata to seek
+            audio.addEventListener("loadedmetadata", function seekOnce() {
+              audio.removeEventListener("loadedmetadata", seekOnce);
+              var rect = bar.getBoundingClientRect();
+              var pct = (e.clientX - rect.left) / rect.width;
+              if (audio.duration) audio.currentTime = pct * audio.duration;
+            });
+            return;
           }
           var rect = bar.getBoundingClientRect();
           var pct = (e.clientX - rect.left) / rect.width;
