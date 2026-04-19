@@ -8,6 +8,7 @@
   // Auto-wrap .detail-grid in a .detail-grid-wrapper,
   // inject the sliding detail panel, and wire up pulse attrs.
   function initDetailGrids() {
+    activeSlug = null;
     document.querySelectorAll(".detail-grid").forEach(function (grid) {
       var wrapper = document.createElement("div");
       wrapper.className = "detail-grid-wrapper";
