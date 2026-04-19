@@ -96,28 +96,35 @@
       if (bar) {
         bar.addEventListener("click", function (e) {
           e.stopPropagation();
+          var rect = bar.getBoundingClientRect();
+          var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+
           if (activeCard !== card) {
-            // Start playing, then seek once metadata is available
+            // Start playing, then seek once duration is known
             play(card);
-            audio.addEventListener("loadedmetadata", function seekOnce() {
-              audio.removeEventListener("loadedmetadata", seekOnce);
-              var rect = bar.getBoundingClientRect();
-              var pct = (e.clientX - rect.left) / rect.width;
-              if (audio.duration) audio.currentTime = pct * audio.duration;
-            });
+            var onMeta = function () {
+              audio.removeEventListener("loadedmetadata", onMeta);
+              audio.currentTime = pct * audio.duration;
+            };
+            if (audio.duration) {
+              audio.currentTime = pct * audio.duration;
+            } else {
+              audio.addEventListener("loadedmetadata", onMeta);
+            }
             return;
           }
-          // Already active — just seek
-          var rect = bar.getBoundingClientRect();
-          var pct = (e.clientX - rect.left) / rect.width;
+
+          // Already active — seek directly
           if (audio.duration) {
             audio.currentTime = pct * audio.duration;
-            // If paused (e.g. after track ended), resume playback
+            // Resume if paused
             if (audio.paused) {
               audio.play();
               setPlaying(card, true);
             }
           }
+        });
+      }
         });
       }
     });
