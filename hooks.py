@@ -27,10 +27,10 @@ def on_config(config):
     # ── Generators ──────────────────────────────────────────
 
     def section_heading(ctx, subtitle=""):
-        content = ctx.content.strip()
+        content = escape(ctx.content.strip())
         sub = ""
         if subtitle:
-            sub = f""" <span style="opacity: var(--opacity-secondary)">{subtitle}</span>"""
+            sub = f""" <span style="opacity: var(--opacity-secondary)">{escape(subtitle)}</span>"""
         return f"""<p class="section-label">{content}{sub}</p>"""
 
     def link_item(ctx, title="", url="#"):
@@ -61,7 +61,7 @@ def on_config(config):
 <div class="icon-grid-cell">
   <div class="icon-grid-icon">{icon_html}</div>
   <div class="icon-grid-info">
-    <p class="icon-grid-name">{name}</p>
+    <p class="icon-grid-name">{escape(name)}</p>
     <p class="icon-grid-desc">{desc}</p>
   </div>
 </div>"""
@@ -123,8 +123,8 @@ def on_config(config):
   <div id="{trigger_id}" class="{trigger_classes}"
     data-expand="{detail_id}"{pulse_attrs}>
     <div>
-      <h4 class="project-title">{title}</h4>
-      <p class="project-sub">{subtitle}</p>
+      <h4 class="project-title">{escape(title)}</h4>
+      <p class="project-sub">{escape(subtitle)}</p>
     </div>
     <svg class="expand-icon"
       viewBox="0 0 24 24" fill="none" stroke="currentColor"
