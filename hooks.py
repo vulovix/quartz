@@ -2,6 +2,7 @@
 
 import json
 import re
+import yaml
 from html import escape
 from pathlib import Path
 from mkdocs.structure.files import File
@@ -313,10 +314,31 @@ def on_config(config):
   </div>
 </div>"""
 
-    def blog_post(ctx, slug="", title="", date=""):
-        excerpt = escape(ctx.content.strip())
+    def blog_post(ctx, id=""):
+        config_dir = Path(config["config_file_path"]).parent
+        docs_dir = Path(config.get("docs_dir", config_dir / "docs"))
+        post_path = docs_dir / f"{id}.md"
+
+        title = id
+        date = ""
+        excerpt = ""
+
+        if post_path.exists():
+            raw = post_path.read_text(encoding="utf-8")
+            fm_match = re.match(r"^---\s*\n(.*?)\n---\s*\n", raw, re.DOTALL)
+            if fm_match:
+                fm = yaml.safe_load(fm_match.group(1)) or {}
+                title = fm.get("title", id)
+                date_val = fm.get("date", "")
+                if hasattr(date_val, "strftime"):
+                    date = date_val.strftime("%b %-d, %Y")
+                else:
+                    date = str(date_val) if date_val else ""
+                desc_val = fm.get("description", "")
+                excerpt = escape(str(desc_val)) if desc_val else ""
+
         return f"""\
-<a href="/writing/{escape(slug)}/" class="blog-post-item">
+<a href="/{escape(id)}/" class="blog-post-item">
   <span class="blog-post-date">{escape(date)}</span>
   <div class="blog-post-main">
     <span class="blog-post-title">{escape(title)}</span>

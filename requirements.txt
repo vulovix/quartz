@@ -3,3 +3,4 @@ mkdocs-macros-plugin==1.0.5
 markdown-customblocks==1.5.4
 pymdown-extensions==10.21.2
 mkdocs-open-in-new-tab==1.0.8
+PyYAML==6.0.2

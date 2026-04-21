@@ -254,24 +254,19 @@ A single-track inline player with cover art, title, artist, play/pause, seekable
 
 ### Blog Post
 
-Linked post previews that auto-group into a post list.
+Linked post previews that auto-group into a post list. Title, date, and excerpt are read directly from the referenced file's frontmatter (`description`) — no duplication needed.
 
-::: blog-post slug="css-in-2026" title="CSS in 2026 Is Kind of Amazing" date="Feb 5, 2026"
-    @property, anchor positioning, and color-mix() that actually works — the platform has quietly become the tool I wanted five years ago.
+::: blog-post id="writing/css-in-2026"
 
-::: blog-post slug="component-apis" title="The Component API I Keep Coming Back To" date="Mar 18, 2026"
-    After years of building React component libraries, I've settled on a handful of patterns that make consumer code genuinely nicer to write.
+::: blog-post id="writing/component-apis"
 
-::: blog-post slug="build-times" title="I Spent a Week Obsessing Over Build Times" date="Apr 3, 2026"
-    Webpack to Vite, Vite to custom esbuild pipelines — here's what actually moved the needle.
+::: blog-post id="writing/build-times"
 
 **Code:**
 ```markdown
-::: blog-post slug="css-in-2026" title="CSS in 2026 Is Kind of Amazing" date="Feb 5, 2026"
-    @property, anchor positioning, and color-mix() that actually works — the platform has quietly become the tool I wanted five years ago.
+::: blog-post id="writing/css-in-2026"
 
-::: blog-post slug="component-apis" title="The Component API I Keep Coming Back To" date="Mar 18, 2026"
-    After years of building React component libraries, I've settled on a handful of patterns that make consumer code genuinely nicer to write.
+::: blog-post id="writing/2026/css-in-2026"
 ```
 
 ---
