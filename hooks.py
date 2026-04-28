@@ -144,7 +144,7 @@ def on_config(config):
   </div>
 </div>"""
 
-    def photo_card(ctx, id="", place="", country="", year="", description="", aspect=""):
+    def photo_card(ctx, id="", title="", subtitle="", year="", description="", aspect="", hide_info="false"):
         content = ctx.content.strip()
         images = []
         for line in content.split("\n"):
@@ -167,26 +167,34 @@ def on_config(config):
 
         aspect_style = f" style=\"aspect-ratio:{aspect}\"" if aspect else ""
         aspect_data = f" data-aspect=\"{escape(aspect)}\"" if aspect else ""
-        return f"""\
-<div class="photo-card pressable"
-  data-photo-id="{escape(id)}"
-  data-place="{escape(place)}"
-  data-country="{escape(country)}"
-  data-description="{escape(description)}"{aspect_data}>
-  <div class="photo-card-img-wrap"{aspect_style}>
-    <img src="{escape(thumb_src)}" alt="{escape(first_alt)}" loading="lazy" draggable="false" />
-    {badge}
-  </div>
+        
+        info_html = ""
+        no_info_class = ""
+        if str(hide_info).lower() == "true":
+            no_info_class = " no-info"
+        else:
+            info_html = f"""
   <div class="photo-card-info">
     <div class="photo-card-header">
       <div>
-        <h3 class="photo-card-place">{escape(place)}</h3>
-        <p class="photo-card-country">{escape(country)}</p>
+        <h3 class="photo-card-title">{escape(title)}</h3>
+        <p class="photo-card-subtitle">{escape(subtitle)}</p>
       </div>
       <span class="photo-card-year">{escape(year)}</span>
     </div>
     <p class="photo-card-desc">{escape(description)}</p>
-  </div>
+  </div>"""
+
+        return f"""\
+<div class="photo-card{no_info_class} pressable"
+  data-photo-id="{escape(id)}"
+  data-title="{escape(title)}"
+  data-subtitle="{escape(subtitle)}"
+  data-description="{escape(description)}"{aspect_data}>
+  <div class="photo-card-img-wrap"{aspect_style}>
+    <img src="{escape(thumb_src)}" alt="{escape(first_alt)}" loading="lazy" draggable="false" />
+    {badge}
+  </div>{info_html}
   <div class="photo-card-slides hidden">
     <div class="carousel"{aspect_style} data-carousel="">
       <div class="carousel-track">{slides}</div>

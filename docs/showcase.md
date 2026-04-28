@@ -185,26 +185,26 @@ Expandable cards with an image carousel and description text. The first item sho
 
 Image cards with a thumbnail, metadata, and a hidden carousel for lightbox viewing.
 
-::: photo-card id="demo-alps" place="Swiss Alps" country="Switzerland" year="2024" description="First light breaking over the Bernese Oberland at 3,200m."
+::: photo-card id="demo-alps" title="Swiss Alps" subtitle="Switzerland" year="2024" description="First light breaking over the Bernese Oberland at 3,200m."
     ![Mountain at dawn](https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&h=900&fit=crop)
     ![Alpine lake](https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1400&h=900&fit=crop)
     ![Golden meadow](https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400&h=900&fit=crop)
 
-::: photo-card id="demo-kyoto" place="Kyoto" country="Japan" year="2023" description="Fushimi Inari at dusk — after the last tourist buses leave."
+::: photo-card id="demo-kyoto" title="Kyoto" subtitle="Japan" year="2023" description="Fushimi Inari at dusk — after the last tourist buses leave."
     ![Torii gates](https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1400&h=900&fit=crop)
     ![Bamboo grove](https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1400&h=900&fit=crop)
 
-::: photo-card id="demo-patagonia" place="Patagonia" country="Argentina" year="2023" aspect="3/2" description="Horizontal — wide landscapes and open skies."
+::: photo-card id="demo-patagonia" title="Patagonia" subtitle="Argentina" year="2023" aspect="3/2" description="Horizontal — wide landscapes and open skies."
     ![Torres del Paine](https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&h=900&fit=crop)
     ![Glacial lake](https://images.unsplash.com/photo-1544979590-37e9b47eb705?w=1400&h=900&fit=crop)
 
-::: photo-card id="demo-portrait" place="Marrakech" country="Morocco" year="2024" aspect="2/3" description="Vertical — portrait orientation for tall subjects."
+::: photo-card id="demo-portrait" title="Marrakech" subtitle="Morocco" year="2024" aspect="2/3" description="Vertical — portrait orientation for tall subjects."
     ![Street alley](https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=900&h=1400&fit=crop)
     ![Doorway](https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=900&h=1400&fit=crop)
 
 **Code:**
 ```markdown
-::: photo-card id="demo-alps" place="Swiss Alps" country="Switzerland" year="2024" description="First light breaking over the Bernese Oberland at 3,200m."
+::: photo-card id="demo-alps" title="Swiss Alps" subtitle="Switzerland" year="2024" description="First light breaking over the Bernese Oberland at 3,200m."
     ![Mountain at dawn](https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&h=900&fit=crop)
     ![Alpine lake](https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1400&h=900&fit=crop)
 

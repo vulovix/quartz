@@ -1,6 +1,6 @@
 /* ── Photo Gallery (lightbox) ─────────────────────── */
 (function () {
-  var lightbox, lbPlace, lbCountry, lbDesc, lbImgWrap;
+  var lightbox, lbTitle, lbSubtitle, lbDesc, lbImgWrap;
 
   function ensureLightbox() {
     if (lightbox) return;
@@ -13,14 +13,14 @@
       '<div class="lightbox-inner">' +
       '<div class="lightbox-img-wrap"></div>' +
       '<div class="lightbox-caption">' +
-      '<div><span class="lb-place"></span><span class="lb-country"></span></div>' +
+      '<div><span class="lb-title"></span><span class="lb-subtitle"></span></div>' +
       '<p class="lb-desc"></p>' +
       "</div>" +
       "</div>";
     document.body.appendChild(lightbox);
 
-    lbPlace = lightbox.querySelector(".lb-place");
-    lbCountry = lightbox.querySelector(".lb-country");
+    lbTitle = lightbox.querySelector(".lb-title");
+    lbSubtitle = lightbox.querySelector(".lb-subtitle");
     lbDesc = lightbox.querySelector(".lb-desc");
     lbImgWrap = lightbox.querySelector(".lightbox-img-wrap");
 
@@ -46,8 +46,8 @@
       window.initCarousel(clone);
     }
 
-    lbPlace.textContent = card.dataset.place || "";
-    lbCountry.textContent = card.dataset.country || "";
+    lbTitle.textContent = card.dataset.title || "";
+    lbSubtitle.textContent = card.dataset.subtitle || "";
     lbDesc.textContent = card.dataset.description || "";
 
     // Constrain lightbox width for portrait/square ratios
