@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ config.theme.locale | default('en') }}" class="loading">
+<html lang="{{ page.meta.lang if page and page.meta.lang else config.theme.locale | default('en') }}" class="loading">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
