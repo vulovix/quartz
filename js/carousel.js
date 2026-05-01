@@ -24,15 +24,25 @@ function initCarousel(carousel) {
     return ((i % total) + total) % total;
   }
 
+  function syncDots() {
+    if (!dots) return;
+    dots.querySelectorAll(".carousel-dot").forEach(function (d, j) {
+      d.classList.toggle("active", j === current);
+    });
+  }
+
   function goTo(i) {
-    current = wrapIndex(i);
-    track.style.transition = "transform 0.35s ease";
+    var prev = current;
+    var next = wrapIndex(i);
+    var isForwardWrap = prev === total - 1 && next === 0 && i > prev;
+    var isBackwardWrap = prev === 0 && next === total - 1 && i < prev;
+
+    current = next;
+
+    // Avoid long cross-track animation when wrapping around ends.
+    track.style.transition = isForwardWrap || isBackwardWrap ? "none" : "transform 0.35s ease";
     track.style.transform = "translateX(" + -current * 100 + "%)";
-    if (dots) {
-      dots.querySelectorAll(".carousel-dot").forEach(function (d, j) {
-        d.classList.toggle("active", j === current);
-      });
-    }
+    syncDots();
   }
 
   // Dots
