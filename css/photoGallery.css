@@ -1,5 +1,10 @@
 /* ── Photo Card ───────────────────────────────────── */
 .photo-card {
+  --photo-card-image-max-height: 220px;
+  --photo-card-image-portrait-max-height: 190px;
+  --photo-card-image-touch-wide-max-height: 200px;
+  --photo-card-image-soft-bg: rgba(0, 0, 0, 0.04);
+  --photo-card-image-soft-bg-dark: rgba(255, 255, 255, 0.04);
   display: flex;
   flex-direction: column;
   border-radius: 0.75rem;
@@ -24,7 +29,7 @@
   overflow: hidden;
   aspect-ratio: 3/2;
   position: relative;
-  max-height: clamp(180px, 38vw, 320px);
+  max-height: var(--photo-card-image-max-height);
 }
 .photo-card .photo-card-img-wrap img {
   width: 100%;
@@ -35,14 +40,14 @@
   -webkit-user-drag: none;
 }
 .photo-card.photo-card-portrait .photo-card-img-wrap {
-  max-height: clamp(180px, 44vw, 340px);
+  max-height: var(--photo-card-image-portrait-max-height);
 }
 .photo-card.photo-card-portrait .photo-card-img-wrap img {
   object-fit: contain;
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--photo-card-image-soft-bg);
 }
 .dark .photo-card.photo-card-portrait .photo-card-img-wrap img {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--photo-card-image-soft-bg-dark);
 }
 .photo-card .photo-count-badge {
   position: absolute;
@@ -104,8 +109,26 @@
   padding: 0;
 }
 
+/* Unfolded foldables/tablets: keep media compact and avoid cover-crop clipping. */
+@media (hover: none) and (pointer: coarse) and (min-width: 700px) {
+  .photo-card .photo-card-img-wrap {
+    max-height: var(--photo-card-image-touch-wide-max-height);
+  }
+
+  .photo-card .photo-card-img-wrap img {
+    object-fit: contain;
+    background: var(--photo-card-image-soft-bg);
+  }
+
+  .dark .photo-card .photo-card-img-wrap img {
+    background: var(--photo-card-image-soft-bg-dark);
+  }
+}
+
 /* ── Lightbox ──────────────────────────────────────── */
 .lightbox {
+  --lightbox-carousel-max-height: 70dvh;
+  --lightbox-image-soft-bg: rgba(0, 0, 0, 0.2);
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -138,6 +161,14 @@
   border-radius: 0.5rem;
   overflow: hidden;
   line-height: 0;
+}
+.lightbox .carousel {
+  margin-bottom: 0;
+  max-height: var(--lightbox-carousel-max-height);
+}
+.lightbox .carousel-track img {
+  object-fit: contain;
+  background: var(--lightbox-image-soft-bg);
 }
 .lightbox .lightbox-caption {
   color: #eee;

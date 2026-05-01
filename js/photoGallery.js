@@ -1,6 +1,24 @@
 /* ── Photo Gallery (lightbox) ─────────────────────── */
 (function () {
   var lightbox, lbTitle, lbSubtitle, lbDesc, lbImgWrap;
+  var LIGHTBOX_CONFIG = {
+    portraitMaxWidthPx: 620,
+    portraitHeightExpr: "70vh - 5rem",
+    portraitFallbackMaxWidthPx: 460,
+  };
+
+  function parseAspect(aspectValue) {
+    if (!aspectValue) return null;
+    var parts = aspectValue.split("/");
+    var w = parseFloat(parts[0]);
+    var h = parseFloat(parts[1]);
+    if (!w || !h) return null;
+    return { w: w, h: h, isPortrait: h > w };
+  }
+
+  function portraitLightboxMaxWidth(ratio) {
+    return "min(" + LIGHTBOX_CONFIG.portraitMaxWidthPx + "px, calc((" + LIGHTBOX_CONFIG.portraitHeightExpr + ") * " + ratio + "))";
+  }
 
   function applyPortraitClass(card) {
     if (!card) return;
@@ -73,16 +91,17 @@
     // Constrain lightbox width for portrait/square ratios
     var lbInner = lightbox.querySelector(".lightbox-inner");
     var aspect = card.dataset.aspect;
-    if (aspect) {
-      var parts = aspect.split("/");
-      var w = parseFloat(parts[0]);
-      var h = parseFloat(parts[1]);
-      if (w && h && h > w) {
-        // portrait: cap height to viewport, derive max-width from ratio
-        lbInner.style.maxWidth = "min(860px, calc((100vh - 6rem) * " + w / h + "))";
+    var parsedAspect = parseAspect(aspect);
+    var isPortraitCard = card.classList.contains("photo-card-portrait");
+    if (parsedAspect) {
+      if (parsedAspect.isPortrait) {
+        // portrait: keep image clearly below full-screen height on foldables/tablets
+        lbInner.style.maxWidth = portraitLightboxMaxWidth(parsedAspect.w / parsedAspect.h);
       } else {
         lbInner.style.maxWidth = "";
       }
+    } else if (isPortraitCard) {
+      lbInner.style.maxWidth = LIGHTBOX_CONFIG.portraitFallbackMaxWidthPx + "px";
     } else {
       lbInner.style.maxWidth = "";
     }
