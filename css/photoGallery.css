@@ -1,8 +1,8 @@
 /* ── Photo Card ───────────────────────────────────── */
 .photo-card {
-  --photo-card-image-max-height: 220px;
-  --photo-card-image-portrait-max-height: 190px;
-  --photo-card-image-touch-wide-max-height: 200px;
+  --photo-card-image-max-height: clamp(220px, 34vw, 320px);
+  --photo-card-image-portrait-max-height: clamp(190px, 30vw, 260px);
+  --photo-card-image-touch-wide-max-height: clamp(200px, 26vw, 240px);
   --photo-card-image-soft-bg: rgba(0, 0, 0, 0.04);
   --photo-card-image-soft-bg-dark: rgba(255, 255, 255, 0.04);
   display: flex;
