@@ -162,6 +162,9 @@
   width: 100%;
   max-height: var(--lightbox-carousel-max-height);
 }
+.lightbox.lightbox-has-explicit-aspect .carousel {
+  max-height: none;
+}
 .lightbox.lightbox-ratio-portrait .carousel,
 .lightbox.lightbox-ratio-square .carousel,
 .lightbox.lightbox-ratio-landscape .carousel {

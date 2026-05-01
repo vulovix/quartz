@@ -110,7 +110,7 @@
     lbSubtitle.textContent = card.dataset.subtitle || "";
     lbDesc.textContent = card.dataset.description || "";
 
-    // Constrain lightbox width for portrait/square ratios
+    // Constrain lightbox width for portrait fallback cases.
     var lbInner = lightbox.querySelector(".lightbox-inner");
     var aspect = card.dataset.aspect;
     var parsedAspect = parseAspect(aspect);
@@ -118,15 +118,13 @@
     var fallbackOrientation = card.dataset.photoOrientation || "";
     var isPortraitCard = card.classList.contains("photo-card-portrait");
 
-    lightbox.classList.remove("lightbox-ratio-portrait", "lightbox-ratio-square", "lightbox-ratio-landscape");
+    lightbox.classList.remove("lightbox-ratio-portrait", "lightbox-ratio-square", "lightbox-ratio-landscape", "lightbox-has-explicit-aspect");
 
     if (parsedAspect) {
-      if (parsedAspect.orientation === "portrait") {
-        lbInner.style.maxWidth = lightboxMaxWidthForRatio(parsedAspect.ratio);
-      } else {
-        lbInner.style.maxWidth = "";
-      }
+      // If aspect is explicitly passed, trust that ratio and avoid extra wrapper shrinking.
+      lbInner.style.maxWidth = "";
       lightbox.classList.add("lightbox-ratio-" + parsedAspect.orientation);
+      lightbox.classList.add("lightbox-has-explicit-aspect");
     } else if (fallbackRatio) {
       var computedOrientation = fallbackOrientation || orientationFromRatio(fallbackRatio);
       if (computedOrientation === "portrait") {
