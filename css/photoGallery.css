@@ -35,7 +35,7 @@
   -webkit-user-drag: none;
 }
 .photo-card.photo-card-portrait .photo-card-img-wrap {
-  max-height: clamp(220px, 55vw, 420px);
+  max-height: clamp(180px, 44vw, 340px);
 }
 .photo-card.photo-card-portrait .photo-card-img-wrap img {
   object-fit: contain;

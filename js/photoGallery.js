@@ -2,6 +2,26 @@
 (function () {
   var lightbox, lbTitle, lbSubtitle, lbDesc, lbImgWrap;
 
+  function applyPortraitClass(card) {
+    if (!card) return;
+    var img = card.querySelector(".photo-card-img-wrap img");
+    if (!img) return;
+
+    function syncOrientation() {
+      if (!img.naturalWidth || !img.naturalHeight) return;
+      if (img.naturalHeight > img.naturalWidth) {
+        card.classList.add("photo-card-portrait");
+      }
+    }
+
+    if (img.complete) {
+      syncOrientation();
+      return;
+    }
+
+    img.addEventListener("load", syncOrientation, { once: true });
+  }
+
   function ensureLightbox() {
     if (lightbox) return;
     lightbox = document.createElement("div");
@@ -79,6 +99,7 @@
 
   function initPhotoGallery() {
     document.querySelectorAll(".photo-card").forEach(function (card) {
+      applyPortraitClass(card);
       if (card._galleryBound) return;
       card._galleryBound = true;
       card.addEventListener("click", function () {
