@@ -120,7 +120,7 @@
 
 /* ── Lightbox ──────────────────────────────────────── */
 .lightbox {
-  --lightbox-carousel-max-height: 70dvh;
+  --lightbox-carousel-max-height: 78dvh;
   --lightbox-image-soft-bg: rgba(0, 0, 0, 0.2);
   position: fixed;
   inset: 0;
@@ -129,7 +129,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 0.75rem 1rem 1rem;
   animation: lbFadeIn 0.2s ease;
 }
 @keyframes lbFadeIn {
@@ -154,6 +154,7 @@
   border-radius: 0.75rem;
   overflow: hidden;
   display: flex;
+  align-items: center;
   justify-content: center;
   line-height: 0;
 }
@@ -165,7 +166,7 @@
   overflow: hidden;
 }
 .lightbox.lightbox-has-explicit-aspect .carousel {
-  max-height: min(var(--lightbox-carousel-max-height), calc(100dvh - 10rem));
+  max-height: min(var(--lightbox-carousel-max-height), calc(100dvh - 6.5rem));
 }
 .lightbox.lightbox-ratio-portrait .carousel,
 .lightbox.lightbox-ratio-square .carousel,
@@ -178,6 +179,10 @@
   object-position: center center;
   background: var(--lightbox-image-soft-bg);
   border-radius: 0.75rem;
+}
+.lightbox.lightbox-has-explicit-aspect .carousel-track img {
+  object-fit: cover;
+  background: transparent;
 }
 .lightbox .lightbox-caption {
   color: #eee;

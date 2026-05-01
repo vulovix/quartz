@@ -3,7 +3,7 @@
   var lightbox, lbTitle, lbSubtitle, lbDesc, lbImgWrap;
   var LIGHTBOX_CONFIG = {
     maxWidthPx: 860,
-    maxHeightExpr: "70vh - 5rem",
+    maxHeightExpr: "78dvh - 3.25rem",
     minRatio: 0.6,
     maxRatio: 1.8,
     squareTolerance: 0.08,
@@ -121,8 +121,8 @@
     lightbox.classList.remove("lightbox-ratio-portrait", "lightbox-ratio-square", "lightbox-ratio-landscape", "lightbox-has-explicit-aspect");
 
     if (parsedAspect) {
-      // If aspect is explicitly passed, trust that ratio and avoid extra wrapper shrinking.
-      lbInner.style.maxWidth = "";
+      // Respect explicit aspect while keeping the image as large as possible in viewport.
+      lbInner.style.maxWidth = lightboxMaxWidthForRatio(parsedAspect.ratio);
       lightbox.classList.add("lightbox-ratio-" + parsedAspect.orientation);
       lightbox.classList.add("lightbox-has-explicit-aspect");
     } else if (fallbackRatio) {
