@@ -160,14 +160,23 @@
 .lightbox .lightbox-img-wrap {
   border-radius: 0.5rem;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
   line-height: 0;
 }
 .lightbox .carousel {
   margin-bottom: 0;
   max-height: var(--lightbox-carousel-max-height);
 }
+.lightbox.lightbox-ratio-portrait .carousel,
+.lightbox.lightbox-ratio-square .carousel,
+.lightbox.lightbox-ratio-landscape .carousel {
+  margin-left: auto;
+  margin-right: auto;
+}
 .lightbox .carousel-track img {
   object-fit: contain;
+  object-position: center center;
   background: var(--lightbox-image-soft-bg);
 }
 .lightbox .lightbox-caption {

@@ -2,10 +2,22 @@
 (function () {
   var lightbox, lbTitle, lbSubtitle, lbDesc, lbImgWrap;
   var LIGHTBOX_CONFIG = {
-    portraitMaxWidthPx: 620,
-    portraitHeightExpr: "70vh - 5rem",
+    maxWidthPx: 860,
+    maxHeightExpr: "70vh - 5rem",
+    minRatio: 0.6,
+    maxRatio: 1.8,
+    squareTolerance: 0.08,
     portraitFallbackMaxWidthPx: 460,
   };
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function orientationFromRatio(ratio) {
+    if (Math.abs(ratio - 1) <= LIGHTBOX_CONFIG.squareTolerance) return "square";
+    return ratio < 1 ? "portrait" : "landscape";
+  }
 
   function parseAspect(aspectValue) {
     if (!aspectValue) return null;
@@ -13,11 +25,18 @@
     var w = parseFloat(parts[0]);
     var h = parseFloat(parts[1]);
     if (!w || !h) return null;
-    return { w: w, h: h, isPortrait: h > w };
+    var ratio = w / h;
+    return {
+      w: w,
+      h: h,
+      ratio: ratio,
+      orientation: orientationFromRatio(ratio),
+    };
   }
 
-  function portraitLightboxMaxWidth(ratio) {
-    return "min(" + LIGHTBOX_CONFIG.portraitMaxWidthPx + "px, calc((" + LIGHTBOX_CONFIG.portraitHeightExpr + ") * " + ratio + "))";
+  function lightboxMaxWidthForRatio(ratio) {
+    var safeRatio = clamp(ratio, LIGHTBOX_CONFIG.minRatio, LIGHTBOX_CONFIG.maxRatio);
+    return "min(" + LIGHTBOX_CONFIG.maxWidthPx + "px, calc((" + LIGHTBOX_CONFIG.maxHeightExpr + ") * " + safeRatio + "))";
   }
 
   function applyPortraitClass(card) {
@@ -27,7 +46,10 @@
 
     function syncOrientation() {
       if (!img.naturalWidth || !img.naturalHeight) return;
-      if (img.naturalHeight > img.naturalWidth) {
+      var ratio = img.naturalWidth / img.naturalHeight;
+      card.dataset.photoRatio = String(ratio);
+      card.dataset.photoOrientation = orientationFromRatio(ratio);
+      if (ratio < 1) {
         card.classList.add("photo-card-portrait");
       }
     }
@@ -92,18 +114,24 @@
     var lbInner = lightbox.querySelector(".lightbox-inner");
     var aspect = card.dataset.aspect;
     var parsedAspect = parseAspect(aspect);
+    var fallbackRatio = parseFloat(card.dataset.photoRatio || "");
+    var fallbackOrientation = card.dataset.photoOrientation || "";
     var isPortraitCard = card.classList.contains("photo-card-portrait");
+
+    lightbox.classList.remove("lightbox-ratio-portrait", "lightbox-ratio-square", "lightbox-ratio-landscape");
+
     if (parsedAspect) {
-      if (parsedAspect.isPortrait) {
-        // portrait: keep image clearly below full-screen height on foldables/tablets
-        lbInner.style.maxWidth = portraitLightboxMaxWidth(parsedAspect.w / parsedAspect.h);
-      } else {
-        lbInner.style.maxWidth = "";
-      }
+      lbInner.style.maxWidth = lightboxMaxWidthForRatio(parsedAspect.ratio);
+      lightbox.classList.add("lightbox-ratio-" + parsedAspect.orientation);
+    } else if (fallbackRatio) {
+      lbInner.style.maxWidth = lightboxMaxWidthForRatio(fallbackRatio);
+      lightbox.classList.add("lightbox-ratio-" + (fallbackOrientation || orientationFromRatio(fallbackRatio)));
     } else if (isPortraitCard) {
       lbInner.style.maxWidth = LIGHTBOX_CONFIG.portraitFallbackMaxWidthPx + "px";
+      lightbox.classList.add("lightbox-ratio-portrait");
     } else {
       lbInner.style.maxWidth = "";
+      lightbox.classList.add("lightbox-ratio-landscape");
     }
 
     lightbox.classList.remove("hidden");
