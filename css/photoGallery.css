@@ -1,5 +1,7 @@
 /* ── Photo Card ───────────────────────────────────── */
 .photo-card {
+  display: flex;
+  flex-direction: column;
   border-radius: 0.75rem;
   overflow: hidden;
   margin-bottom: 1.5rem;
@@ -22,6 +24,7 @@
   overflow: hidden;
   aspect-ratio: 3/2;
   position: relative;
+  max-height: clamp(180px, 38vw, 320px);
 }
 .photo-card .photo-card-img-wrap img {
   width: 100%;
@@ -30,6 +33,16 @@
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+}
+.photo-card.photo-card-portrait .photo-card-img-wrap {
+  max-height: clamp(220px, 55vw, 420px);
+}
+.photo-card.photo-card-portrait .photo-card-img-wrap img {
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.04);
+}
+.dark .photo-card.photo-card-portrait .photo-card-img-wrap img {
+  background: rgba(255, 255, 255, 0.04);
 }
 .photo-card .photo-count-badge {
   position: absolute;
@@ -57,12 +70,16 @@
   align-items: baseline;
   gap: 0.5rem;
 }
+.photo-card .photo-card-header > div {
+  min-width: 0;
+}
 .photo-card .photo-card-title {
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 0.2rem;
   line-height: 1.3;
   padding: 0;
+  overflow-wrap: anywhere;
 }
 .photo-card .photo-card-subtitle {
   font-size: 12px;

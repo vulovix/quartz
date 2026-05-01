@@ -167,6 +167,18 @@ def on_config(config):
 
         aspect_style = f" style=\"aspect-ratio:{aspect}\"" if aspect else ""
         aspect_data = f" data-aspect=\"{escape(aspect)}\"" if aspect else ""
+
+        orientation_class = ""
+        if aspect:
+            parts = aspect.split("/")
+            if len(parts) == 2:
+                try:
+                    w = float(parts[0])
+                    h = float(parts[1])
+                    if w > 0 and h > 0 and h > w:
+                        orientation_class = " photo-card-portrait"
+                except ValueError:
+                    pass
         
         info_html = ""
         no_info_class = ""
@@ -186,7 +198,7 @@ def on_config(config):
   </div>"""
 
         return f"""\
-<div class="photo-card{no_info_class} pressable"
+<div class="photo-card{orientation_class}{no_info_class} pressable"
   data-photo-id="{escape(id)}"
   data-title="{escape(title)}"
   data-subtitle="{escape(subtitle)}"
