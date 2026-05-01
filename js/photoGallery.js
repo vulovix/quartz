@@ -121,11 +121,20 @@
     lightbox.classList.remove("lightbox-ratio-portrait", "lightbox-ratio-square", "lightbox-ratio-landscape");
 
     if (parsedAspect) {
-      lbInner.style.maxWidth = lightboxMaxWidthForRatio(parsedAspect.ratio);
+      if (parsedAspect.orientation === "portrait") {
+        lbInner.style.maxWidth = lightboxMaxWidthForRatio(parsedAspect.ratio);
+      } else {
+        lbInner.style.maxWidth = "";
+      }
       lightbox.classList.add("lightbox-ratio-" + parsedAspect.orientation);
     } else if (fallbackRatio) {
-      lbInner.style.maxWidth = lightboxMaxWidthForRatio(fallbackRatio);
-      lightbox.classList.add("lightbox-ratio-" + (fallbackOrientation || orientationFromRatio(fallbackRatio)));
+      var computedOrientation = fallbackOrientation || orientationFromRatio(fallbackRatio);
+      if (computedOrientation === "portrait") {
+        lbInner.style.maxWidth = lightboxMaxWidthForRatio(fallbackRatio);
+      } else {
+        lbInner.style.maxWidth = "";
+      }
+      lightbox.classList.add("lightbox-ratio-" + computedOrientation);
     } else if (isPortraitCard) {
       lbInner.style.maxWidth = LIGHTBOX_CONFIG.portraitFallbackMaxWidthPx + "px";
       lightbox.classList.add("lightbox-ratio-portrait");

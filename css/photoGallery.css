@@ -28,6 +28,7 @@
 .photo-card .photo-card-img-wrap {
   overflow: hidden;
   aspect-ratio: 3/2;
+  width: 100%;
   position: relative;
   max-height: var(--photo-card-image-max-height);
 }
@@ -43,11 +44,7 @@
   max-height: var(--photo-card-image-portrait-max-height);
 }
 .photo-card.photo-card-portrait .photo-card-img-wrap img {
-  object-fit: contain;
-  background: var(--photo-card-image-soft-bg);
-}
-.dark .photo-card.photo-card-portrait .photo-card-img-wrap img {
-  background: var(--photo-card-image-soft-bg-dark);
+  object-fit: cover;
 }
 .photo-card .photo-count-badge {
   position: absolute;
@@ -114,15 +111,6 @@
   .photo-card .photo-card-img-wrap {
     max-height: var(--photo-card-image-touch-wide-max-height);
   }
-
-  .photo-card .photo-card-img-wrap img {
-    object-fit: contain;
-    background: var(--photo-card-image-soft-bg);
-  }
-
-  .dark .photo-card .photo-card-img-wrap img {
-    background: var(--photo-card-image-soft-bg-dark);
-  }
 }
 
 /* ── Lightbox ──────────────────────────────────────── */
@@ -166,6 +154,7 @@
 }
 .lightbox .carousel {
   margin-bottom: 0;
+  width: 100%;
   max-height: var(--lightbox-carousel-max-height);
 }
 .lightbox.lightbox-ratio-portrait .carousel,
