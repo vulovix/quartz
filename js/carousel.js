@@ -20,8 +20,12 @@ function initCarousel(carousel) {
   track.style.transition = "none";
   track.style.transform = "translateX(0)";
 
+  function wrapIndex(i) {
+    return ((i % total) + total) % total;
+  }
+
   function goTo(i) {
-    current = Math.max(0, Math.min(i, total - 1));
+    current = wrapIndex(i);
     track.style.transition = "transform 0.35s ease";
     track.style.transform = "translateX(" + -current * 100 + "%)";
     if (dots) {
@@ -86,17 +90,15 @@ function initCarousel(carousel) {
   function dragMove(x) {
     if (!dragging) return;
     deltaX = x - startX;
-    var atEdge = (current === 0 && deltaX > 0) || (current === total - 1 && deltaX < 0);
-    var pxOffset = atEdge ? deltaX * 0.2 : deltaX;
-    track.style.transform = "translateX(calc(" + -current * 100 + "% + " + pxOffset + "px))";
+    track.style.transform = "translateX(calc(" + -current * 100 + "% + " + deltaX + "px))";
   }
 
   function dragEnd() {
     if (!dragging) return;
     dragging = false;
     var threshold = w() * 0.2;
-    if (deltaX > threshold && current > 0) goTo(current - 1);
-    else if (deltaX < -threshold && current < total - 1) goTo(current + 1);
+    if (deltaX > threshold) goTo(current - 1);
+    else if (deltaX < -threshold) goTo(current + 1);
     else goTo(current);
     deltaX = 0;
   }
