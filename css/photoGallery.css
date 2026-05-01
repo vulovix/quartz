@@ -163,7 +163,7 @@
   max-height: var(--lightbox-carousel-max-height);
 }
 .lightbox.lightbox-has-explicit-aspect .carousel {
-  max-height: none;
+  max-height: min(var(--lightbox-carousel-max-height), calc(100dvh - 10rem));
 }
 .lightbox.lightbox-ratio-portrait .carousel,
 .lightbox.lightbox-ratio-square .carousel,
