@@ -113,6 +113,11 @@
   }
 }
 
+/* If aspect is explicitly passed via prop, respect it exactly. */
+.photo-card[data-aspect] .photo-card-img-wrap {
+  max-height: none;
+}
+
 /* ── Lightbox ──────────────────────────────────────── */
 .lightbox {
   --lightbox-carousel-max-height: 70dvh;
