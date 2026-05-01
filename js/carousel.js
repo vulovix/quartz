@@ -9,16 +9,45 @@ function initCarousel(carousel) {
   var dots = carousel.querySelector(".carousel-dots");
   if (!track) return;
 
-  var total = track.querySelectorAll("img").length;
+  carousel.querySelectorAll(".carousel-btn").forEach(function (btn) {
+    btn.remove();
+  });
+
+  var originals = Array.from(track.querySelectorAll("img:not([data-carousel-clone])"));
+  if (!originals.length) {
+    originals = Array.from(track.querySelectorAll("img"));
+  }
+
+  var total = originals.length;
   if (!total) return;
 
+  var firstClone = originals[0].cloneNode(true);
+  firstClone.setAttribute("data-carousel-clone", "true");
+  var lastClone = originals[total - 1].cloneNode(true);
+  lastClone.setAttribute("data-carousel-clone", "true");
+
+  track.innerHTML = "";
+  track.appendChild(lastClone);
+  originals.forEach(function (img) {
+    img.removeAttribute("data-carousel-clone");
+    track.appendChild(img);
+  });
+  track.appendChild(firstClone);
+
   var current = 0;
+  var visualIndex = 1;
+  var draggingBaseIndex = 1;
+
   function w() {
     return carousel.getBoundingClientRect().width;
   }
 
-  track.style.transition = "none";
-  track.style.transform = "translateX(0)";
+  function setTrackPosition(index, animated) {
+    track.style.transition = animated ? "transform 0.35s ease" : "none";
+    track.style.transform = "translateX(" + -index * 100 + "%)";
+  }
+
+  setTrackPosition(visualIndex, false);
 
   function wrapIndex(i) {
     return ((i % total) + total) % total;
@@ -31,19 +60,47 @@ function initCarousel(carousel) {
     });
   }
 
-  function goTo(i) {
-    var prev = current;
-    var next = wrapIndex(i);
-    var isForwardWrap = prev === total - 1 && next === 0 && i > prev;
-    var isBackwardWrap = prev === 0 && next === total - 1 && i < prev;
-
-    current = next;
-
-    // Avoid long cross-track animation when wrapping around ends.
-    track.style.transition = isForwardWrap || isBackwardWrap ? "none" : "transform 0.35s ease";
-    track.style.transform = "translateX(" + -current * 100 + "%)";
+  function goToReal(i) {
+    current = wrapIndex(i);
+    visualIndex = current + 1;
+    setTrackPosition(visualIndex, true);
     syncDots();
   }
+
+  function goNext() {
+    current = wrapIndex(current + 1);
+    visualIndex += 1;
+    setTrackPosition(visualIndex, true);
+    syncDots();
+  }
+
+  function goPrev() {
+    current = wrapIndex(current - 1);
+    visualIndex -= 1;
+    setTrackPosition(visualIndex, true);
+    syncDots();
+  }
+
+  function settleIfNeeded() {
+    if (visualIndex === total + 1) {
+      visualIndex = 1;
+      setTrackPosition(visualIndex, false);
+    } else if (visualIndex === 0) {
+      visualIndex = total;
+      setTrackPosition(visualIndex, false);
+    }
+  }
+
+  var ac = new AbortController();
+  var signal = ac.signal;
+  track.addEventListener(
+    "transitionend",
+    function (e) {
+      if (e.propertyName !== "transform") return;
+      settleIfNeeded();
+    },
+    { signal: signal },
+  );
 
   // Dots
   if (dots) {
@@ -56,11 +113,15 @@ function initCarousel(carousel) {
         dot.setAttribute("aria-label", "Slide " + (idx + 1));
         dot.addEventListener("click", function (e) {
           e.stopPropagation();
-          goTo(idx);
+          goToReal(idx);
         });
         dots.appendChild(dot);
       })(i);
     }
+  }
+
+  if (total === 1) {
+    return;
   }
 
   // Prev / Next
@@ -73,7 +134,8 @@ function initCarousel(carousel) {
       '"/></svg>';
     btn.addEventListener("click", function (e) {
       e.stopPropagation();
-      goTo(current + offset);
+      if (offset > 0) goNext();
+      else goPrev();
     });
     carousel.appendChild(btn);
   }
@@ -84,8 +146,7 @@ function initCarousel(carousel) {
   var startX = 0,
     deltaX = 0,
     dragging = false;
-  var ac = new AbortController();
-  var signal = ac.signal;
+
   carousel._carouselCleanup = function () {
     ac.abort();
   };
@@ -94,22 +155,23 @@ function initCarousel(carousel) {
     startX = x;
     dragging = true;
     deltaX = 0;
+    draggingBaseIndex = visualIndex;
     track.style.transition = "none";
   }
 
   function dragMove(x) {
     if (!dragging) return;
     deltaX = x - startX;
-    track.style.transform = "translateX(calc(" + -current * 100 + "% + " + deltaX + "px))";
+    track.style.transform = "translateX(calc(" + -draggingBaseIndex * 100 + "% + " + deltaX + "px))";
   }
 
   function dragEnd() {
     if (!dragging) return;
     dragging = false;
     var threshold = w() * 0.2;
-    if (deltaX > threshold) goTo(current - 1);
-    else if (deltaX < -threshold) goTo(current + 1);
-    else goTo(current);
+    if (deltaX > threshold) goPrev();
+    else if (deltaX < -threshold) goNext();
+    else setTrackPosition(visualIndex, true);
     deltaX = 0;
   }
 
