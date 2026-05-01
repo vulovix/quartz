@@ -161,6 +161,8 @@
   margin-bottom: 0;
   width: 100%;
   max-height: var(--lightbox-carousel-max-height);
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 .lightbox.lightbox-has-explicit-aspect .carousel {
   max-height: min(var(--lightbox-carousel-max-height), calc(100dvh - 10rem));
@@ -175,6 +177,7 @@
   object-fit: contain;
   object-position: center center;
   background: var(--lightbox-image-soft-bg);
+  border-radius: 0.75rem;
 }
 .lightbox .lightbox-caption {
   color: #eee;
